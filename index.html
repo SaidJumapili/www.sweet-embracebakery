@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="Baking and snaks" content="Product from baked goods and wheat flours' dough prepared from Tanzania">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Sweet and embrace bakery</title>
+
+    <!--styling-->
+    <style>
+        /*Always reset all the base styles*/
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            position: relative;
+            min-height: 100vh;
+            padding-bottom: 100px; /* Space for footer */
+        }
+
+        /*styling head and navigation*/
+        header {
+            background: #310e0e;
+            color: #fff;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .language-selector {
+            margin-left: auto;
+            margin-right: 20px;
+        }
+        
+        .language-selector select {
+            padding: 5px;
+            border-radius: 5px;
+            background: #fff;
+            color: #310e0e;
+            border: none;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+        }
+        .menu-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background: #fff;
+            transition: all 0.3s ease;
+        }
+        /*Navigation links styling*/
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #d4a373;
+        }
+
+        /*section styling*/
+        section {
+            min-height: 100vh;
+            padding: 6rem 2rem 2rem; /* Adjusted for fixed header */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Home Section */
+        #home {
+            display: flex;
+            min-height: 100vh;
+            padding: 2rem 5%;
+            align-items: center;
+            background: linear-gradient(135deg, #fff9f0 0%, #f8e8d8 100%);
+            margin-top: 60px; /* For fixed header */
+        }
+        
+        #home .card {
+            flex: 1;
+            padding: 2rem;
+        }
+        
+        #home .card:first-child {
+            z-index: 2;
+        }
+        
+        #home h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: #d4a373;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        #home h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+            color: #5a3e2b;
+        }
+        
+        #home p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        #home button {
+            background-color: #d4a373;
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        #home button:hover {
+            background-color: #c08c5f;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        /* Image Slider */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .slider {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .slide.active {
+            opacity: 1;
+        }
+        
+        .slide-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            padding: 2rem;
+            color: white;
+        }
+        /*style about section*/
+        #about {
+            background: #FAEBD7;
+            transition: background-color 1s ease;
+        }
+        /* Subtle background color changes that won't affect readability */
+        #about:hover {
+            background-color: #FFF8F0;
+        }
+        #about p {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 8px;
+            transition: all 0.5s ease;
+        }
+        #about p:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+
+        #gallery {
+            background: #FFEBCD;
+        }
+
+        #contact {
+            background: #FFE4C4;
+            min-height: auto; /* Don't need full height for contact */
+            padding-bottom: 150px; /* Space for footer */
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Gallery Styles */
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            width: 100%;
+        }
+        
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            width: 100%;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            aspect-ratio: 1 / 1;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Footer Styles */
+        footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: #310e0e;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .footer-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .footer-social a:hover {
+            background-color: #d4a373;
+            transform: translateY(-3px);
+        }
+        
+        /* Custom X (Twitter) icon styles */
+        .x-icon {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+        
+        .footer-bottom {
+            margin-top: 1rem;
+        }
+
+        /*Responsive styling*/
+        @media (max-width: 992px) {
+            #home {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            #home .card {
+                width: 100%;
+            }
+            
+            .slider-container {
+                height: 400px;
+                margin-top: 2rem;
+            }
+            
+            #home h1 {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #310e0e;
+                flex-direction: column;
+                align-items: center;
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease-out;
+            }
+            .nav-links.active {
+                max-height: 500px;
+                padding: 1rem 0;
+            }
+            .nav-links li {
+                margin: 1rem 0;
+                width: 100%;
+                text-align: center;
+            }
+            .nav-links a {
+                display: block;
+                padding: 0.5rem 0;
+            }
+            
+            /*Hamburger to X animation*/
+            .menu-toggle.active span:nth-child(1) {
+                transform: translateY(9px) rotate(45deg);
+            }
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+            .menu-toggle.active span:nth-child(3) {
+                transform: translateY(-9px) rotate(-45deg);
+            }
+
+            #home h1 {
+                font-size: 2.2rem;
+            }
+            
+            #home h2 {
+                font-size: 1.4rem;
+            }
+            
+            .slider-container {
+                height: 350px;
+            }
+
+            .image-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+            
+            .language-selector {
+                margin-right: 10px;
+            }
+        }
+
+        
+    </style>
+    <style>
+        /* WhatsApp Widget Styles */
+        .whatsapp-widget {
+          position: fixed;
+          bottom: 30px;
+          right: 30px;
+          z-index: 999;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          gap: 15px;
+        }
+        
+        /* Message Box Styles */
+        .chat-message {
+          background-color: #fff;
+          color: #333;
+          padding: 15px 20px;
+          border-radius: 10px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          animation: slideIn 0.5s ease-out;
+          max-width: 250px;
+          position: relative;
+        }
+        
+        .close-message {
+          font-size: 20px;
+          cursor: pointer;
+          color: #888;
+          margin-left: 10px;
+        }
+        
+        .close-message:hover {
+          color: #333;
+        }
+        
+        /* WhatsApp Button Styles */
+        .whatsapp-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: #25D366;
+          color: white;
+          text-decoration: none;
+          padding: 12px 20px;
+          border-radius: 50px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+          transition: all 0.3s ease;
+          animation: float 2s ease-in-out infinite;
+        }
+        
+        .whatsapp-btn:hover {
+          background-color: #128C7E;
+          transform: translateY(-3px);
+          box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+        }
+        
+        .whatsapp-btn i {
+          font-size: 24px;
+          margin-right: 10px;
+        }
+        
+        .chat-text {
+          font-family: 'Poppins', sans-serif;
+          font-weight: 500;
+        }
+        
+        /* Animations */
+        @keyframes float {
+          0% { transform: translateY(0px); }
+          50% { transform: translateY(-5px); }
+          100% { transform: translateY(0px); }
+        }
+        
+        @keyframes slideIn {
+          from { 
+            transform: translateY(20px);
+            opacity: 0;
+          }
+          to { 
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+          .whatsapp-widget {
+            bottom: 20px;
+            right: 20px;
+          }
+          
+          .chat-text {
+            display: none;
+          }
+          
+          .whatsapp-btn {
+            width: 50px;
+            height: 50px;
+            padding: 0;
+            border-radius: 50%;
+          }
+          
+          .whatsapp-btn i {
+            margin-right: 0;
+            font-size: 28px;
+          }
+          
+          .chat-message {
+            max-width: 200px;
+            padding: 12px 15px;
+            font-size: 14px;
+          }
+        }
+      </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="logo">Sweet&embrace bakery</div>
+            <div class="language-selector">
+                <select id="language-select">
+                    <option value="en">English</option>
+                    <option value="sw">Swahili</option>
+                </select>
+            </div>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" data-en="Home" data-sw="Nyumbani">Home</a></li>
+                <li><a href="#about" data-en="About" data-sw="Kuhusu">About</a></li>
+                <li><a href="#gallery" data-en="Gallery" data-sw="Picha">Gallery</a></li>
+                <li><a href="#contact" data-en="Contact" data-sw="Mawasiliano">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section id="home">
+        <div class="card">
+            <h1 data-en="Sweet and Embrace Bakery" data-sw="Sweet na Embrace Bakery">Sweet and Embrace Bakery</h1>
+            <h2 data-en="Make your day great with our delicious cakes and cookies!" 
+                data-sw="Fanya siku yako kuwa bora kwa keki na biskuti zetu tamu!">
+                Make your day great with our delicious cakes and cookies!
+            </h2>
+            <p data-en="Welcome to our cake paradise, where we take pride in serving you with every bite." 
+               data-sw="Karibu katika paradiso yetu ya keki, mahali ambapo tutajivunia kukuhudumia kwa kila kipande.">
+                Welcome to our cake paradise, where we take pride in serving you with every bite.
+            </p>
+            <button data-en="Contact Us" data-sw="Wasiliana Nasi">Contact Us</button>
+        </div>
+        <div class="card">
+            <div class="slider-container">
+                <div class="slider">
+                    <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1558326567-98ae2405596b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80');">
+                        <div class="slide-content">
+                            <h3 data-en="Our Signature Chocolate Cake" data-sw="Keki Yetu ya Chokoleti">Our Signature Chocolate Cake</h3>
+                        </div>
+                    </div>
+                    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1562440499-64c9a111f713?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80');">
+                        <div class="slide-content">
+                            <h3 data-en="Freshly Baked Cookies" data-sw="Biskuti Zilizookwa Hivi Karibuni">Freshly Baked Cookies</h3>
+                        </div>
+                    </div>
+                    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80');">
+                        <div class="slide-content">
+                            <h3 data-en="Custom Birthday Cakes" data-sw="Keki za Kuzaliwa Zilizobuniwa">Custom Birthday Cakes</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h1 data-en="About Us" data-sw="Kuhusu Sisi">About Us</h1>
+        <p data-en="Welcome to Sweet and Embrace Bakery, where we're crafting delicious baked goods with love. Our passion for quality ingredients and traditional baking methods ensures every bite is a moment of joy."
+           data-sw="Karibu Sweet and Embrace Bakery, ambapo tunatengeneza vyakula vya mkate kwa upendo. Shauku yetu kwa viungo bora na mbinu za kitamaduni za upishi huhakikisha kila utumiapo bidhaa yetu ni wakati wa furaha.">
+            Welcome to Sweet and Embrace Bakery, where we're crafting delicious baked goods with love. Our passion for quality ingredients and traditional baking methods ensures every bite is a moment of joy.
+        </p>
+        <p data-en="All our products are made fresh daily using locally sourced ingredients whenever possible. We take pride in our Swahili heritage while incorporating international baking techniques."
+           data-sw="Bidhaa zetu zote hutengenezwa kwa siku kwa kutumia viungo vya ndani iwezekanavyo. Tunajivunia utamaduni wetu wa Kiswahili huku tukijumuisha mbinu za kimataifa za upishi.">
+            All our products are made fresh daily using locally sourced ingredients whenever possible. We take pride in our Swahili heritage while incorporating international baking techniques.
+        </p>
+    </section>
+
+    <section id="gallery">
+        <div class="gallery-container">
+            <h1 data-en="Our Gallery" data-sw="Picha Zetu">Our Gallery</h1>
+            <p data-en="Explore our delicious creations that will satisfy your sweet cravings"
+               data-sw="Gundua uumbaji wetu mtamu ambao utakidhi hamu yako ya tamu">
+                Explore our delicious creations that will satisfy your sweet cravings
+            </p>
+            <div class="image-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Cupcakes">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1517686469429-8bdb88b9f907?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Bread">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Breakfast">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Donuts">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1495147466023-ac5c588e2e94?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Macarons">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1562440499-64c9a111f713?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Cookies">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h1 data-en="Contact Us" data-sw="Wasiliana Nasi">Contact Us</h1>
+        <p data-en="Get in touch with us through this contact section."
+           data-sw="Tuwasiliane kupitia sehemu hii ya mawasiliano.">
+            Get in touch with us through this contact section.
+        </p>
+        <address>
+            <p>Phone:<a href="tel:255 768 743 095">+255 768 743 095</a></p>
+            <p>Email:<a href="www.Nurueldorice@gmail.com">Nurueldorice@gmail.com</i></a></p>
+            <p data-en="Address:  Kimara Butcher, Dar Es Salaam"
+           data-sw="Anwani:  Kimara Butcher, Dar Es Salaam">
+            Address:  Kimara Butcher, Dar Es Salaam
+        </p>
+        </address>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-social">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/dorice_bakery?igsh=MWtpN2lvNTU2Nnlwag==" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Twitter">
+                    <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+                    </svg>
+                </a>
+                <a href="https://www.tiktok.com/@sweetembrace34bakery?_t=ZM-8wjDhuLPjAU&_r=1" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year"></span> <span data-en="Sweet and Embrace Bakery. All rights reserved." 
+                    data-sw="Sweet and Embrace Bakery. Haki zote zimehifadhiwa.">
+                    Sweet and Embrace Bakery. | All rights reserved by Wecode.com 
+                </span></p>
+            </div>
+        </div>
+    </footer>
+    <!-- WhatsApp Chat Widget -->
+    <div class="whatsapp-widget">
+        <!-- Message Box -->
+         <div class="chat-message">
+            <span class="message-text">Need to place order? Chat with us!</span>
+            <span class="close-message">&times;</span>
+        </div>
+        <!-- WhatsApp Button -->
+         <a href="https://wa.me/255768743095" target="_blank" class="whatsapp-btn">
+            <i class="fab fa-whatsapp"></i>
+            <span class="chat-text">Chat with Us!</span>
+        </a>
+    </div>
+
+    <script>
+        // Menu Toggle Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            menuToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+
+            // Close menu when clicking a link
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function() {
+                    menuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
+            });
+
+            // Image Slider Functionality
+            const slides = document.querySelectorAll('.slide');
+            let currentSlide = 0;
+            
+            function showSlide(n) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                currentSlide = (n + slides.length) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }
+            
+            function nextSlide() {
+                showSlide(currentSlide + 1);
+            }
+            
+            // Change slide every 5 seconds
+            setInterval(nextSlide, 5000);
+            
+            // Gallery hover effect enhancement
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            galleryItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px)';
+                    this.style.boxShadow = '0 15px 30px rgba(0,0,0,0.2)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
+                    this.style.boxShadow = '';
+                });
+            });
+            
+            // Contact button functionality
+            const contactBtn = document.querySelector('#home button');
+            contactBtn.addEventListener('click', function() {
+                const lang = document.getElementById('language-select').value;
+                if(lang === 'sw') {
+                    alert('Asante kwa nia yako! Tafadhali tuite kwa +255 768 743 095 au tembelea duka letu Dar Es Salaam.');
+                } else {
+                    alert('Thank you for your interest! Please call us at +255 768 743 095 or visit our shop in Dar Es Salaam.');
+                }
+            });
+
+            // Set current year in footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+            
+            // Language selector functionality
+            const languageSelect = document.getElementById('language-select');
+            languageSelect.addEventListener('change', function() {
+                const lang = this.value;
+                updateLanguage(lang);
+            });
+            
+            function updateLanguage(lang) {
+                // Update all elements with data attributes
+                document.querySelectorAll('[data-en], [data-sw]').forEach(element => {
+                    if(element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = element.getAttribute(`data-${lang}`);
+                    } else {
+                        if(element.hasAttribute(`data-${lang}`)) {
+                            element.textContent = element.getAttribute(`data-${lang}`);
+                        }
+                    }
+                });
+                
+                // Update button text
+                const buttons = document.querySelectorAll('button[data-en], button[data-sw]');
+                buttons.forEach(button => {
+                    if(button.hasAttribute(`data-${lang}`)) {
+                        button.textContent = button.getAttribute(`data-${lang}`);
+                    }
+                });
+                
+                // Update links text
+                const links = document.querySelectorAll('a[data-en], a[data-sw]');
+                links.forEach(link => {
+                    if(link.hasAttribute(`data-${lang}`)) {
+                        link.textContent = link.getAttribute(`data-${lang}`);
+                    }
+                });
+            }
+        });
+        // Add language support for the chat button
+        document.addEventListener('DOMContentLoaded', function() {
+            const languageSelect = document.getElementById('language-select');
+            if (languageSelect) {
+                languageSelect.addEventListener('change', function() {
+                    updateChatButtonText(this.value);
+                });
+                // Initialize on load
+                updateChatButtonText(languageSelect.value);
+            }
+            function updateChatButtonText(lang) {
+                const chatText = document.querySelector('.chat-text');
+                if (chatText) {
+                    if (lang === 'sw') {
+                        chatText.textContent = 'Zungumza na Mtaalamu';
+                    } else {
+                        chatText.textContent = 'Chat with Expert';
+                    }
+                }
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          // Language support
+          const languageSelect = document.getElementById('language-select');
+          const messageText = document.querySelector('.message-text');
+          const chatText = document.querySelector('.chat-text');
+          
+          function updateChatTexts(lang) {
+            if (lang === 'sw') {
+              messageText.textContent = 'Unahitaji usaidizi? Tuwasiliane kupitia WhatsApp!';
+              chatText.textContent = 'Zungumza na Mtaalamu';
+            } else {
+              messageText.textContent = 'Need help? Chat with us on WhatsApp!';
+              chatText.textContent = 'Chat with Expert';
+            }
+          }
+          
+          if (languageSelect) {
+            languageSelect.addEventListener('change', function() {
+              updateChatTexts(this.value);
+            });
+            // Initialize on load
+            updateChatTexts(languageSelect.value);
+          }
+          
+          // Close message functionality
+          const closeBtn = document.querySelector('.close-message');
+          const messageBox = document.querySelector('.chat-message');
+          
+          closeBtn.addEventListener('click', function() {
+            messageBox.style.display = 'none';
+            // Optional: Store in localStorage to remember user preference
+            localStorage.setItem('hideWhatsappPrompt', 'true');
+          });
+          
+          // Show message only if not previously dismissed
+          if (localStorage.getItem('hideWhatsappPrompt') === 'true') {
+            messageBox.style.display = 'none';
+          }
+          
+          // Auto-hide message after 8 seconds
+          setTimeout(function() {
+            messageBox.style.opacity = '0';
+            setTimeout(function() {
+              messageBox.style.display = 'none';
+            }, 500);
+          }, 8000);
+        });
+      </script>
+</body>
+</html>
